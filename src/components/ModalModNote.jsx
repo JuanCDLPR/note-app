@@ -140,7 +140,9 @@ export default function ModalModNote({
           </div>
         </DialogContent>
         <DialogActions>
-          <Button onClick={Guardar}>Guardar</Button>
+          <Button onClick={Guardar} className="btn btn-s">
+            Guardar
+          </Button>
         </DialogActions>
       </Dialog>
     </>

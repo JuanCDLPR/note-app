@@ -138,7 +138,9 @@ export default function ModalAddNote({
           </div>
         </DialogContent>
         <DialogActions>
-          <Button onClick={Guardar}>Agregar</Button>
+          <Button onClick={Guardar} className="btn btn-s">
+            Agregar
+          </Button>
         </DialogActions>
       </Dialog>
     </>

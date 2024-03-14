@@ -74,6 +74,13 @@ const StorageProvider = ({ children }) => {
     setCategorys(newCategorys);
   };
 
+  const DeleteCategory = (index) => {
+    const newCat = getCategorysLocaStorage();
+    newCat.splice(index, 1);
+    setCategorysLocalStorage(newCat);
+    setCategorys(newCat);
+  };
+
   return (
     <LocalStorageContext.Provider
       value={{
@@ -83,6 +90,7 @@ const StorageProvider = ({ children }) => {
         AddCategory,
         Categorys,
         Notes,
+        DeleteCategory,
       }}
     >
       {children}

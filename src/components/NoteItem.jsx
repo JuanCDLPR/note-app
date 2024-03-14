@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Col } from "react-bootstrap";
 import html2canvas from "html2canvas";
 
-import CircleIcon from "@mui/icons-material/Circle";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import GetAppIcon from "@mui/icons-material/GetApp";
 import BorderColorIcon from "@mui/icons-material/BorderColor";

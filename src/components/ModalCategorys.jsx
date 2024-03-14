@@ -8,15 +8,18 @@ import {
   Button,
   TextField,
   Typography,
+  Tooltip,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Col, Row } from "react-bootstrap";
 
 import { useEffect } from "react";
 import { useLocalStorage } from "../context/useLocalStorage";
+import CircleIconCat from "./CircleIconCat";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 export default function ModalCategorys({ onClose = () => {}, action = "" }) {
-  const { AddCategory } = useLocalStorage();
+  const { AddCategory, Categorys, DeleteCategory } = useLocalStorage();
 
   const [Values, setValues] = useState({
     name: "",
@@ -68,6 +71,7 @@ export default function ModalCategorys({ onClose = () => {}, action = "" }) {
       AddCategory(Values.name, Values.color);
       onClose();
     } else {
+      onClose();
     }
   };
 
@@ -91,36 +95,65 @@ export default function ModalCategorys({ onClose = () => {}, action = "" }) {
         </DialogTitle>
         <DialogContent>
           <div className="px-1 py-2">
-            <Row>
-              <Col xs={12} className="p-3">
-                <TextField
-                  label="Nombre"
-                  value={Values.name}
-                  error={Errores.name}
-                  onChange={handleInputChange}
-                  name="name"
-                  size="small"
-                  fullWidth
-                  helperText={Errores.titulo ? "Llenar el nombre" : ""}
-                />
-              </Col>
-              <Col xs={12} className="p-3">
-                <div className="d-flex justify-content-start align-items-center">
-                  <Typography className="me-3">Elija el color:</Typography>
-                  <input
-                    type="color"
-                    name="color"
-                    onChange={handleChangeColor}
-                    value={Values.color}
+            {action === "add" ? (
+              <Row>
+                <Col xs={12} className="p-3">
+                  <TextField
+                    label="Nombre"
+                    value={Values.name}
+                    error={Errores.name}
+                    onChange={handleInputChange}
+                    name="name"
+                    size="small"
+                    fullWidth
+                    helperText={Errores.titulo ? "Llenar el nombre" : ""}
                   />
-                </div>
-              </Col>
-            </Row>
+                </Col>
+                <Col xs={12} className="p-3">
+                  <div className="d-flex justify-content-start align-items-center">
+                    <Typography className="me-3">Elija el color:</Typography>
+                    <input
+                      type="color"
+                      name="color"
+                      onChange={handleChangeColor}
+                      value={Values.color}
+                    />
+                  </div>
+                </Col>
+              </Row>
+            ) : (
+              <Row>
+                <Col xs={12}>
+                  {Categorys.map((item, idx) => {
+                    return (
+                      <div className="d-flex justify-content-start align-items-center mb-3">
+                        <Typography>{item.name}</Typography>
+                        <CircleIconCat cat={item.value} />
+
+                        <Tooltip title="Eliminar" placement="top-start">
+                          <IconButton
+                            onClick={() => DeleteCategory(idx)}
+                            className="ms-auto"
+                          >
+                            <DeleteOutlineIcon
+                              style={{
+                                color: "#000000",
+                              }}
+                            />
+                          </IconButton>
+                        </Tooltip>
+                      </div>
+                    );
+                  })}
+                </Col>
+              </Row>
+            )}
           </div>
         </DialogContent>
+
         <DialogActions>
           <Button onClick={() => AddRem()} className="btn btn-s">
-            {action === "add" ? "Agregar " : "Eliminar "}
+            {action === "add" ? "Agregar " : "Cerrar "}
           </Button>
         </DialogActions>
       </Dialog>

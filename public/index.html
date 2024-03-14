@@ -10,7 +10,10 @@
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
+    <link rel="stylesheet" href="%PUBLIC_URL%/css/bootstrap.min.css" />
+
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -36,4 +39,34 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <style>
+    .target-task {
+      width: 100%;
+      height: auto;
+      background-color: #c9c9ca;
+      border-radius: 10px;
+    }
+
+    p {
+      text-align: center;
+    }
+
+    .title-task {
+      font-weight: bold;
+      font-size: 20px;
+      text-decoration: underline;
+    }
+
+    .size-icon {
+      font-size: 20px;
+      color: #000000;
+    }
+
+    @media (max-width: 576px) {
+      .size-icon {
+        font-size: 40px;
+        color: #000000;
+      }
+    }
+  </style>
 </html>

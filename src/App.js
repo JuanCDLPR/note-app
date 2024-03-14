@@ -9,9 +9,7 @@ import SelectCategoria from "./components/SelectCategoria";
 import ModalCategorys from "./components/ModalCategorys";
 
 function App() {
-  const { LoadNotes } = useLocalStorage();
-
-  const [notes, setNotes] = useState(LoadNotes());
+  const { Notes } = useLocalStorage();
 
   const [showAddNote, setShowAddNote] = useState(false);
   const [idxMod, setIdxMod] = useState(null);
@@ -54,28 +52,16 @@ function App() {
         </div>
 
         <Row className="p-0 m-0">
-          {notes.map((item, idx) => {
+          {Notes.map((item, idx) => {
             if (ValueSelect !== 0) {
               return ValueSelect === item?.cat ? (
-                <NoteItem
-                  note={item}
-                  index={idx}
-                  setNotes={setNotes}
-                  notes={notes}
-                  setIdxEdit={setIdxMod}
-                />
+                <NoteItem note={item} index={idx} setIdxEdit={setIdxMod} />
               ) : (
                 <></>
               );
             } else {
               return (
-                <NoteItem
-                  note={item}
-                  index={idx}
-                  setNotes={setNotes}
-                  notes={notes}
-                  setIdxEdit={setIdxMod}
-                />
+                <NoteItem note={item} index={idx} setIdxEdit={setIdxMod} />
               );
             }
           })}
@@ -87,8 +73,6 @@ function App() {
           onClose={() => {
             setShowAddNote(false);
           }}
-          notes={notes}
-          setNotes={setNotes}
         />
       )}
 
@@ -98,8 +82,6 @@ function App() {
             setShowModNote(false);
             setIdxMod(null);
           }}
-          notes={notes}
-          setNotes={setNotes}
           indice={idxMod}
         />
       )}

@@ -22,12 +22,8 @@ import { useLocalStorage } from "../context/useLocalStorage";
 import { getDateFormat } from "../lib/generals";
 import SelectCategoria from "./SelectCategoria";
 
-export default function ModalAddNote({
-  onClose = () => {},
-  setNotes = () => {},
-  notes = [],
-}) {
-  const { AddNote } = useLocalStorage();
+export default function ModalAddNote({ onClose = () => {} }) {
+  const { AddNote, Notes } = useLocalStorage();
 
   const [Values, setValues] = useState({
     titulo: "",
@@ -65,7 +61,7 @@ export default function ModalAddNote({
       return;
     }
 
-    const newNotes = JSON.parse(JSON.stringify(notes));
+    const newNotes = JSON.parse(JSON.stringify(Notes));
     const date = getDateFormat();
 
     newNotes.push({
@@ -76,7 +72,6 @@ export default function ModalAddNote({
       modify: date,
     });
 
-    setNotes(newNotes);
     AddNote(Values.titulo, Values.desc, date, ValueSelect);
 
     onClose();

@@ -10,22 +10,10 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { useLocalStorage } from "../context/useLocalStorage";
 import CircleIconCat from "./CircleIconCat";
 
-export default function NoteItem({ note, index, setNotes, notes, setIdxEdit }) {
+export default function NoteItem({ note, index, setIdxEdit }) {
   const { DeleteNote } = useLocalStorage();
 
   const [showButtons, setShowButtons] = useState(true);
-
-  const del = () => {
-    DeleteNote(index);
-
-    const newNotes = notes.filter((item, idx) => {
-      if (idx != index) {
-        return item;
-      }
-    });
-
-    setNotes(newNotes);
-  };
 
   const refParaImagen = React.useRef(null);
 
@@ -66,7 +54,7 @@ export default function NoteItem({ note, index, setNotes, notes, setIdxEdit }) {
         {showButtons && (
           <div className="d-flex justify-content-center align-items-center mt-4">
             <Tooltip title="Eliminar" placement="top-start">
-              <IconButton onClick={() => del()}>
+              <IconButton onClick={() => DeleteNote(index)}>
                 <DeleteOutlineIcon
                   style={{
                     color: "#000000",

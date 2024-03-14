@@ -24,22 +24,21 @@ import SelectCategoria from "./SelectCategoria";
 
 export default function ModalModNote({
   onClose = () => {},
-  setNotes = () => {},
-  notes = [],
+
   indice,
 }) {
-  const { ModifyNote } = useLocalStorage();
+  const { ModifyNote, Notes } = useLocalStorage();
 
   const [Values, setValues] = useState({
-    titulo: notes[indice].title,
-    desc: notes[indice].desc,
+    titulo: Notes[indice].title,
+    desc: Notes[indice].desc,
   });
 
   const [Errores, setErrores] = useState({
     titulo: false,
     desc: false,
   });
-  const [ValueSelect, setValueSelect] = useState(notes[indice].cat ?? 5);
+  const [ValueSelect, setValueSelect] = useState(Notes[indice].cat ?? 5);
 
   const handleChange = ({ target }) => {
     setValueSelect(target.value);
@@ -65,7 +64,7 @@ export default function ModalModNote({
       return;
     }
 
-    const newNotes = JSON.parse(JSON.stringify(notes));
+    const newNotes = JSON.parse(JSON.stringify(Notes));
     const date = getDateFormat();
 
     const newItem = {
@@ -78,7 +77,6 @@ export default function ModalModNote({
 
     newNotes[indice] = newItem;
 
-    setNotes(newNotes);
     ModifyNote(Values.titulo, Values.desc, date, indice, ValueSelect);
 
     onClose();

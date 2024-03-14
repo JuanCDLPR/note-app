@@ -16,9 +16,9 @@ import {
 const LocalStorageContext = createContext();
 
 const StorageProvider = ({ children }) => {
-  const [handleCategorys, setHandleCategorys] = useState(
-    getCategorysLocaStorage()
-  );
+  const [Categorys, setCategorys] = useState(getCategorysLocaStorage());
+
+  const [Notes, setNotes] = useState(getNotesLocaStorage());
 
   const AddNote = (title, desc, create, cat) => {
     const newNotes = getNotesLocaStorage();
@@ -32,16 +32,15 @@ const StorageProvider = ({ children }) => {
     });
 
     setNotesLocalStorage(newNotes);
-  };
 
-  const LoadNotes = () => {
-    return getNotesLocaStorage();
+    setNotes(newNotes);
   };
 
   const DeleteNote = (index) => {
     const newNotes = getNotesLocaStorage();
     newNotes.splice(index, 1);
     setNotesLocalStorage(newNotes);
+    setNotes(newNotes);
   };
 
   const ModifyNote = (title, desc, modify, index, cat) => {
@@ -57,6 +56,7 @@ const StorageProvider = ({ children }) => {
 
     newNotes[index] = newItem;
     setNotesLocalStorage(newNotes);
+    setNotes(newNotes);
   };
 
   const AddCategory = (name, color) => {
@@ -71,34 +71,18 @@ const StorageProvider = ({ children }) => {
     });
     setlastValueCategory(lasValue);
     setCategorysLocalStorage(newCategorys);
-    setHandleCategorys(newCategorys);
+    setCategorys(newCategorys);
   };
-
-  const LoadCategorys = () => {
-    return getCategorysLocaStorage();
-  };
-
-  /*   return {
-    AddNote,
-    LoadNotes,
-    DeleteNote,
-    ModifyNote,
-    AddCategory,
-    LoadCategorys,
-    //handleCategorys,
-    handleCategorys,
-  }; */
 
   return (
     <LocalStorageContext.Provider
       value={{
         AddNote,
-        LoadNotes,
         DeleteNote,
         ModifyNote,
         AddCategory,
-        LoadCategorys,
-        handleCategorys,
+        Categorys,
+        Notes,
       }}
     >
       {children}

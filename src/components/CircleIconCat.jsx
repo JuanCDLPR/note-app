@@ -3,12 +3,10 @@ import CircleIcon from "@mui/icons-material/Circle";
 import { useLocalStorage } from "../context/useLocalStorage";
 
 export default function CircleIconCat({ cat }) {
-  const { LoadCategorys } = useLocalStorage();
-
-  const [categorys, setCategorys] = useState(LoadCategorys());
+  const { Categorys } = useLocalStorage();
 
   const ElementFind = () => {
-    const category = categorys.find((i) => i.value === cat);
+    const category = Categorys.find((i) => i.value === cat);
 
     //console.log(category);
     if (category) {
@@ -68,7 +66,7 @@ export default function CircleIconCat({ cat }) {
             color: "#6C6C6C",
           }}
         />
-      ) : categorys.length > 0 ? (
+      ) : Categorys.length > 0 ? (
         <ElementFind />
       ) : (
         <></>

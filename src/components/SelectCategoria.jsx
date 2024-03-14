@@ -13,7 +13,7 @@ export default function SelectCategoria({
   handleChange = () => {},
   IsAdd = false,
 }) {
-  const { handleCategorys } = useLocalStorage();
+  const { Categorys } = useLocalStorage();
 
   return (
     <FormControl fullWidth>
@@ -41,7 +41,7 @@ export default function SelectCategoria({
           S/C <CircleIconCat cat={5} />
         </MenuItem>
 
-        {handleCategorys.map((item) => {
+        {Categorys.map((item) => {
           return (
             <MenuItem value={item.value} className="d-flex align-items-center">
               {item.name} <CircleIconCat cat={item.value} />

@@ -7,7 +7,7 @@ import LOGO from "../assets/diary-icon.png";
 
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-export default function HeaderNotes({ notes, setNotes, setShowModal }) {
+export default function HeaderNotes({ setShowModal }) {
   return (
     <header
       className=" p-2 bg-warning d-flex justify-content-start align-items-center w-100"

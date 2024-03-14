@@ -1,17 +1,25 @@
-const getNotesLocaStorage = () => {
-  const notes =
-    window.localStorage.getItem("NOTES") != null &&
-    window.localStorage.getItem("NOTES") != ""
-      ? JSON.parse(window.localStorage.getItem("NOTES"))
-      : [];
-  return notes;
-};
+import React from "react";
+import { useState } from "react";
 
-const setNotesLocalStorage = (notes) => {
-  window.localStorage.setItem("NOTES", JSON.stringify(notes));
-};
+import { useContext } from "react";
+import { createContext } from "react";
 
-const useLocalStorage = () => {
+import {
+  getCategorysLocaStorage,
+  getNotesLocaStorage,
+  setCategorysLocalStorage,
+  setNotesLocalStorage,
+  setlastValueCategory,
+  lastValueCategory,
+} from "./storaje";
+
+const LocalStorageContext = createContext();
+
+const StorageProvider = ({ children }) => {
+  const [handleCategorys, setHandleCategorys] = useState(
+    getCategorysLocaStorage()
+  );
+
   const AddNote = (title, desc, create, cat) => {
     const newNotes = getNotesLocaStorage();
 
@@ -51,12 +59,59 @@ const useLocalStorage = () => {
     setNotesLocalStorage(newNotes);
   };
 
-  return {
+  const AddCategory = (name, color) => {
+    const lasValue = lastValueCategory();
+
+    const newCategorys = getCategorysLocaStorage();
+
+    newCategorys.push({
+      name: name,
+      color: color,
+      value: lasValue,
+    });
+    setlastValueCategory(lasValue);
+    setCategorysLocalStorage(newCategorys);
+    setHandleCategorys(newCategorys);
+  };
+
+  const LoadCategorys = () => {
+    return getCategorysLocaStorage();
+  };
+
+  /*   return {
     AddNote,
     LoadNotes,
     DeleteNote,
     ModifyNote,
-  };
+    AddCategory,
+    LoadCategorys,
+    //handleCategorys,
+    handleCategorys,
+  }; */
+
+  return (
+    <LocalStorageContext.Provider
+      value={{
+        AddNote,
+        LoadNotes,
+        DeleteNote,
+        ModifyNote,
+        AddCategory,
+        LoadCategorys,
+        handleCategorys,
+      }}
+    >
+      {children}
+    </LocalStorageContext.Provider>
+  );
 };
 
-export default useLocalStorage;
+const useLocalStorage = () => {
+  const context = useContext(LocalStorageContext);
+  if (!context) {
+    throw new Error("error");
+  }
+  return context;
+};
+
+export { StorageProvider, useLocalStorage };

@@ -18,7 +18,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Col, Row } from "react-bootstrap";
 
 import { useEffect } from "react";
-import useLocalStorage from "../context/useLocalStorage";
+import { useLocalStorage } from "../context/useLocalStorage";
 import { getDateFormat } from "../lib/generals";
 import SelectCategoria from "./SelectCategoria";
 

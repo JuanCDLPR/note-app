@@ -3,21 +3,32 @@ import { Col, Row } from "react-bootstrap";
 import NoteItem from "./components/NoteItem";
 import HeaderNotes from "./components/HeaderNotes";
 import ModalAddNote from "./components/ModalAddNote";
-import useLocalStorage from "./context/useLocalStorage";
+import { useLocalStorage } from "./context/useLocalStorage";
 import ModalModNote from "./components/ModalModNote";
 import SelectCategoria from "./components/SelectCategoria";
+import ModalCategorys from "./components/ModalCategorys";
 
 function App() {
   const { LoadNotes } = useLocalStorage();
 
   const [notes, setNotes] = useState(LoadNotes());
+
   const [showAddNote, setShowAddNote] = useState(false);
   const [idxMod, setIdxMod] = useState(null);
   const [showModNote, setShowModNote] = useState(false);
   const [ValueSelect, setValueSelect] = useState(0);
+  const [AddRemCat, setAddRemCat] = useState({
+    open: false,
+    action: "",
+  });
 
   const handleChange = ({ target }) => {
-    setValueSelect(target.value);
+    //console.log(target.value);
+    if (target.value === "add" || target.value === "rem") {
+      setAddRemCat({ ...AddRemCat, open: true, action: target.value });
+    } else {
+      setValueSelect(target.value);
+    }
   };
 
   useEffect(() => {
@@ -28,11 +39,7 @@ function App() {
 
   return (
     <div className="">
-      <HeaderNotes
-        notes={notes}
-        setNotes={setNotes}
-        setShowModal={setShowAddNote}
-      />
+      <HeaderNotes setShowModal={setShowAddNote} />
 
       <section
         style={{
@@ -94,6 +101,15 @@ function App() {
           notes={notes}
           setNotes={setNotes}
           indice={idxMod}
+        />
+      )}
+
+      {AddRemCat.open && (
+        <ModalCategorys
+          onClose={() => {
+            setAddRemCat({ ...AddRemCat, open: false, action: "" });
+          }}
+          action={AddRemCat.action}
         />
       )}
     </div>

@@ -7,7 +7,7 @@ import CircleIcon from "@mui/icons-material/Circle";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import GetAppIcon from "@mui/icons-material/GetApp";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
-import useLocalStorage from "../context/useLocalStorage";
+import { useLocalStorage } from "../context/useLocalStorage";
 import CircleIconCat from "./CircleIconCat";
 
 export default function NoteItem({ note, index, setNotes, notes, setIdxEdit }) {

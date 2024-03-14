@@ -20,6 +20,7 @@ import { Col, Row } from "react-bootstrap";
 import { useEffect } from "react";
 import useLocalStorage from "../context/useLocalStorage";
 import { getDateFormat } from "../lib/generals";
+import SelectCategoria from "./SelectCategoria";
 
 export default function ModalModNote({
   onClose = () => {},
@@ -38,6 +39,11 @@ export default function ModalModNote({
     titulo: false,
     desc: false,
   });
+  const [ValueSelect, setValueSelect] = useState(notes[indice].cat ?? 5);
+
+  const handleChange = ({ target }) => {
+    setValueSelect(target.value);
+  };
 
   const handleInputChange = ({ target }) => {
     const name = target.name;
@@ -65,6 +71,7 @@ export default function ModalModNote({
     const newItem = {
       title: Values.titulo,
       desc: Values.desc,
+      cat: ValueSelect,
       create: newNotes[indice].create,
       modify: date,
     };
@@ -72,7 +79,7 @@ export default function ModalModNote({
     newNotes[indice] = newItem;
 
     setNotes(newNotes);
-    ModifyNote(Values.titulo, Values.desc, date, indice);
+    ModifyNote(Values.titulo, Values.desc, date, indice, ValueSelect);
 
     onClose();
   };
@@ -96,6 +103,13 @@ export default function ModalModNote({
         <DialogContent>
           <div className="px-1 py-2">
             <Row>
+              <Col xs={12} className="p-3">
+                <SelectCategoria
+                  ValueSelect={ValueSelect}
+                  handleChange={handleChange}
+                  IsAdd
+                />
+              </Col>
               <Col xs={12} className="p-3">
                 <TextField
                   label="Titulo"

@@ -3,10 +3,12 @@ import React, { useEffect, useState } from "react";
 import { Col } from "react-bootstrap";
 import html2canvas from "html2canvas";
 
+import CircleIcon from "@mui/icons-material/Circle";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import GetAppIcon from "@mui/icons-material/GetApp";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import useLocalStorage from "../context/useLocalStorage";
+import CircleIconCat from "./CircleIconCat";
 
 export default function NoteItem({ note, index, setNotes, notes, setIdxEdit }) {
   const { DeleteNote } = useLocalStorage();
@@ -56,7 +58,10 @@ export default function NoteItem({ note, index, setNotes, notes, setIdxEdit }) {
         ref={refParaImagen}
         className=" target-task d-flex flex-column p-2 align-items-center"
       >
-        <Typography className=" title-task">{note.title}</Typography>
+        <div className="d-flex justify-content-center align-items-center">
+          <Typography className=" title-task">{note.title}</Typography>{" "}
+          <CircleIconCat cat={note.cat} />
+        </div>
         <p>{note.desc}</p>
         {showButtons && (
           <div className="d-flex justify-content-center align-items-center mt-4">

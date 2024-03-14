@@ -12,12 +12,13 @@ const setNotesLocalStorage = (notes) => {
 };
 
 const useLocalStorage = () => {
-  const AddNote = (title, desc, create) => {
+  const AddNote = (title, desc, create, cat) => {
     const newNotes = getNotesLocaStorage();
 
     newNotes.push({
       title: title,
       desc: desc,
+      cat: cat,
       create: create,
       modify: create,
     });
@@ -35,12 +36,13 @@ const useLocalStorage = () => {
     setNotesLocalStorage(newNotes);
   };
 
-  const ModifyNote = (title, desc, modify, index) => {
+  const ModifyNote = (title, desc, modify, index, cat) => {
     const newNotes = getNotesLocaStorage();
 
     const newItem = {
       title: title,
       desc: desc,
+      cat: cat,
       create: newNotes[index].create,
       modify: modify,
     };

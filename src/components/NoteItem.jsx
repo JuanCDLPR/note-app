@@ -10,7 +10,7 @@ import { useLocalStorage } from "../context/useLocalStorage";
 import CircleIconCat from "./CircleIconCat";
 
 export default function NoteItem({ note, index, setIdxEdit }) {
-  const { DeleteNote } = useLocalStorage();
+  const { DeleteNote, GetColorShador } = useLocalStorage();
 
   const [showButtons, setShowButtons] = useState(true);
 
@@ -44,6 +44,9 @@ export default function NoteItem({ note, index, setIdxEdit }) {
       <div
         ref={refParaImagen}
         className=" target-task d-flex flex-column p-2 align-items-center"
+        style={{
+          boxShadow: GetColorShador(note.cat),
+        }}
       >
         <div className="d-flex justify-content-center align-items-center">
           <Typography className=" title-task">{note.title}</Typography>{" "}

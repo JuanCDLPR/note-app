@@ -81,6 +81,31 @@ const StorageProvider = ({ children }) => {
     setCategorys(newCat);
   };
 
+  const GetColorShador = (val) => {
+    const category = Categorys.find((i) => i.value === val);
+
+    //return `2px 4px 10px #B000C4`;
+
+    if (category) {
+      return `6px 8px 19px ${category.color}`;
+    } else {
+      switch (val) {
+        case 1:
+          return `6px 8px 19px #B000C4`;
+        case 2:
+          return `6px 8px 19px #C1CF1C`;
+        case 3:
+          return `6px 8px 19px #45CF1C`;
+        case 4:
+          return `6px 8px 19px #CF1C2A`;
+        case 5:
+          return `6px 8px 19px #6C6C6C`;
+        default:
+          return `6px 8px 19px #000000`;
+      }
+    }
+  };
+
   return (
     <LocalStorageContext.Provider
       value={{
@@ -91,6 +116,7 @@ const StorageProvider = ({ children }) => {
         Categorys,
         Notes,
         DeleteCategory,
+        GetColorShador,
       }}
     >
       {children}

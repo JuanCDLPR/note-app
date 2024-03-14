@@ -1,12 +1,19 @@
+const getNotesLocaStorage = () => {
+  const notes =
+    window.localStorage.getItem("NOTES") != null &&
+    window.localStorage.getItem("NOTES") != ""
+      ? JSON.parse(window.localStorage.getItem("NOTES"))
+      : [];
+  return notes;
+};
+
+const setNotesLocalStorage = (notes) => {
+  window.localStorage.setItem("NOTES", JSON.stringify(notes));
+};
+
 const useLocalStorage = () => {
   const AddNote = (title, desc, create) => {
-    const notes =
-      window.localStorage.getItem("NOTES") != null &&
-      window.localStorage.getItem("NOTES") != ""
-        ? JSON.parse(window.localStorage.getItem("NOTES"))
-        : [];
-
-    const newNotes = JSON.parse(JSON.stringify(notes));
+    const newNotes = getNotesLocaStorage();
 
     newNotes.push({
       title: title,
@@ -15,38 +22,38 @@ const useLocalStorage = () => {
       modify: create,
     });
 
-    window.localStorage.setItem("NOTES", JSON.stringify(newNotes));
+    setNotesLocalStorage(newNotes);
   };
 
   const LoadNotes = () => {
-    const notes =
-      window.localStorage.getItem("NOTES") != null &&
-      window.localStorage.getItem("NOTES") != ""
-        ? JSON.parse(window.localStorage.getItem("NOTES"))
-        : [];
-    return notes;
+    return getNotesLocaStorage();
   };
 
   const DeleteNote = (index) => {
-    const notes =
-      window.localStorage.getItem("NOTES") != null &&
-      window.localStorage.getItem("NOTES") != ""
-        ? JSON.parse(window.localStorage.getItem("NOTES"))
-        : [];
+    const newNotes = getNotesLocaStorage();
+    newNotes.splice(index, 1);
+    setNotesLocalStorage(newNotes);
+  };
 
-    const newNotes = notes.filter((item, idx) => {
-      if (idx != index) {
-        return item;
-      }
-    });
-    //newNotes.splice(idx, 1);
-    window.localStorage.setItem("NOTES", JSON.stringify(newNotes));
+  const ModifyNote = (title, desc, modify, index) => {
+    const newNotes = getNotesLocaStorage();
+
+    const newItem = {
+      title: title,
+      desc: desc,
+      create: newNotes[index].create,
+      modify: modify,
+    };
+
+    newNotes[index] = newItem;
+    setNotesLocalStorage(newNotes);
   };
 
   return {
     AddNote,
     LoadNotes,
     DeleteNote,
+    ModifyNote,
   };
 };
 

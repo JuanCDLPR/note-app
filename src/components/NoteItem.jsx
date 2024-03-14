@@ -7,7 +7,7 @@ import GetAppIcon from "@mui/icons-material/GetApp";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import useLocalStorage from "../context/useLocalStorage";
 
-export default function NoteItem({ note, index, setNotes, notes }) {
+export default function NoteItem({ note, index, setNotes, notes, setIdxEdit }) {
   const { DeleteNote } = useLocalStorage();
 
   const del = () => {
@@ -21,6 +21,7 @@ export default function NoteItem({ note, index, setNotes, notes }) {
 
     setNotes(newNotes);
   };
+
   return (
     <Col xs={6} md={3} className="p-3">
       <div className=" target-task d-flex flex-column p-2 align-items-center">
@@ -48,7 +49,7 @@ export default function NoteItem({ note, index, setNotes, notes }) {
           </Tooltip>
 
           <Tooltip title="Editar" placement="top-start">
-            <IconButton>
+            <IconButton onClick={() => setIdxEdit(index)}>
               <BorderColorIcon
                 style={{
                   color: "#000000",

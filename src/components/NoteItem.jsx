@@ -5,19 +5,30 @@ import { Col } from "react-bootstrap";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import GetAppIcon from "@mui/icons-material/GetApp";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
+import useLocalStorage from "../context/useLocalStorage";
 
-export default function NoteItem() {
+export default function NoteItem({ note, index, setNotes, notes }) {
+  const { DeleteNote } = useLocalStorage();
+
+  const del = () => {
+    DeleteNote(index);
+
+    const newNotes = notes.filter((item, idx) => {
+      if (idx != index) {
+        return item;
+      }
+    });
+
+    setNotes(newNotes);
+  };
   return (
     <Col xs={6} md={3} className="p-3">
       <div className=" target-task d-flex flex-column p-2 align-items-center">
-        <Typography className=" title-task">Titulo</Typography>
-        <p>
-          ñasdkljaklsdas lkasjdlkajsd lakjdalskdj l kajsd laksj lkajsd laksjd
-          alkjlaksjdlaksd
-        </p>
+        <Typography className=" title-task">{note.title}</Typography>
+        <p>{note.desc}</p>
         <div className="d-flex justify-content-center align-items-center mt-4">
           <Tooltip title="Eliminar" placement="top-start">
-            <IconButton>
+            <IconButton onClick={() => del()}>
               <DeleteOutlineIcon
                 style={{
                   color: "#000000",
@@ -53,14 +64,14 @@ export default function NoteItem() {
               fontSize: "10px",
             }}
           >
-            Creacion:{` 2024-10-02`}
+            Creacion:{` ${note.create}`}
           </Typography>
           <Typography
             style={{
               fontSize: "10px",
             }}
           >
-            Ultima Edicion:{` 2024-10-02`}
+            Ultima Edicion:{` ${note.modify}`}
           </Typography>
         </div>
       </div>

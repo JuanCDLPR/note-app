@@ -84,7 +84,7 @@ export default function NoteItem({ note, index, setIdxEdit }) {
           style={{ gap: "10px" }}
         >
           <Typography className=" title-task">{note.title}</Typography>{" "}
-          <CircleIconCat cat={note.cat} />
+          <CircleIconCat cat={note.cat} NotMargin />
         </div>
         <p>{note.desc}</p>
         {showButtons && (

@@ -101,7 +101,7 @@ export default function ModalModNote({
         <DialogContent>
           <div className="px-1 py-2">
             <Row>
-              <Col xs={12} className="p-3">
+              <Col xs={12} md={6} className="p-3">
                 <SelectCategoria
                   ValueSelect={ValueSelect}
                   handleChange={handleChange}

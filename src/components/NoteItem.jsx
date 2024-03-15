@@ -79,7 +79,10 @@ export default function NoteItem({ note, index, setIdxEdit }) {
           boxShadow: GetColorShador(note.cat),
         }}
       >
-        <div className="d-flex justify-content-center align-items-center">
+        <div
+          className="d-flex flex-wrap justify-content-center align-items-center"
+          style={{ gap: "10px" }}
+        >
           <Typography className=" title-task">{note.title}</Typography>{" "}
           <CircleIconCat cat={note.cat} />
         </div>

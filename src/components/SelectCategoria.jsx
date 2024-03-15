@@ -23,6 +23,11 @@ export default function SelectCategoria({
         value={ValueSelect}
         label="Categoria"
         onChange={handleChange}
+        sx={{
+          "& fieldset": {
+            borderColor: "black !important",
+          },
+        }}
       >
         {!IsAdd && <MenuItem value={0}>Todo</MenuItem>}
         <MenuItem value={1}>

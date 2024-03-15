@@ -9,6 +9,11 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { useLocalStorage } from "../context/useLocalStorage";
 import CircleIconCat from "./CircleIconCat";
 
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
+
+const MySwal = withReactContent(Swal);
+
 export default function NoteItem({ note, index, setIdxEdit }) {
   const { DeleteNote, GetColorShador } = useLocalStorage();
 
@@ -18,6 +23,32 @@ export default function NoteItem({ note, index, setIdxEdit }) {
 
   const convertirAImagen = () => {
     setShowButtons(false);
+  };
+
+  const Eliminar = () => {
+    //DeleteNote(index)
+
+    MySwal.fire({
+      title: "¿Estas seguro de eliminar esta nota?",
+      text: "esta acción no se puede deshacer",
+      icon: "warning",
+      showDenyButton: true,
+      denyButtonText: "No, cancelar",
+      confirmButtonText: "Si, estoy seguro",
+      confirmButtonColor: "#3ABE88",
+      denyButtonColor: "#65748B",
+      reverseButtons: true,
+    }).then(function (isConfirm) {
+      if (isConfirm.isConfirmed) {
+        MySwal.fire({
+          title: "Exito!",
+          text: "Eliminado correctamente",
+          icon: "success",
+        }).then(function () {
+          DeleteNote(index);
+        });
+      }
+    });
   };
 
   useEffect(() => {
@@ -56,7 +87,7 @@ export default function NoteItem({ note, index, setIdxEdit }) {
         {showButtons && (
           <div className="d-flex justify-content-center align-items-center mt-4">
             <Tooltip title="Eliminar" placement="top-start">
-              <IconButton onClick={() => DeleteNote(index)}>
+              <IconButton onClick={() => Eliminar()}>
                 <DeleteOutlineIcon
                   style={{
                     color: "#000000",
